@@ -11,6 +11,7 @@
 </html>
 
 <script>
+  const baseUrl = "https://smart-meter-api.herokuapp.com/";
 
   let xhr = new XMLHttpRequest();
   
@@ -18,7 +19,7 @@
     meterNumber: "14241794702"
   });
   
-  xhr.open('POST', 'http://localhost/smart-meter/routes/hardware/control/');
+  xhr.open('POST', `${baseUrl}routes/hardware/control/`);
   
   xhr.responseType = 'json';
   
