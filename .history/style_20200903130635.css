@@ -1,0 +1,72 @@
+tr th, tr td {
+  border-right: 2px solid white;
+}
+
+.form-row {
+  margin-bottom: 10px; 
+  font-size: 1.4rem; 
+  letter-spacing: 1.5px;
+}
+
+.more-details {
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 23% 25% 23% 23%;
+  column-gap: 2%;
+
+  padding: 1rem 1.5rem !important;
+}
+
+.details {
+  /* display: flex; */
+  flex: column nowrap;
+
+  /* border: 1px solid green; */
+}
+
+.details > div {
+  display: flex;
+  /* flex-grow: 1; */
+  flex-basis: 100%;
+
+  padding: 1rem 0.5rem;
+}
+
+.details > div .detail-label {
+  flex-basis: 40%;
+  
+  /* font-weight: 300; */
+  color: rgb(86, 123, 158);
+  /* border: 1px solid black; */
+}
+
+.details > div .detail {
+  /* flex-grow: 1; */
+  flex-basis: 60%;
+  /* border: 1px solid black; */
+}
+
+.detail-title {
+  flex-basis: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(86, 123, 158);
+}
+
+#add-subscriber:hover {
+  background-color: burlywood;
+}
+
+body {
+  align-items: center;
+  text-align: center;
+}
+
+.wrapper {
+  max-width: 33vw;
+  background-color: red;
+  margin: auto;
+}
+
+@media only (max-width:)

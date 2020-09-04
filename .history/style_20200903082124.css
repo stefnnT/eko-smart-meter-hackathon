@@ -1,0 +1,39 @@
+tr th, tr td {
+  border-right: 2px solid white;
+}
+
+.form-row {
+  margin-bottom: 10px; 
+  font-size: 1.7rem; 
+  letter-spacing: 1.5px;
+}
+
+.more-details {
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+
+  padding: 1rem 4.5rem !important;
+  border: 2px solid blue;
+}
+
+.details {
+  display: flex;
+  flex: row nowrap;
+
+  border: 1px solid green;
+}
+
+.details > div {
+  display: flex;
+  flex-grow: 1;
+}
+
+.details > div .detail-label {
+  flex-basis: 45%;
+}
+
+.details > div .detail {
+  flex-basis: 60%;
+}

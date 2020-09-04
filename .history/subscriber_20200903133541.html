@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <!-- <link rel="icon" type="image/png" href="assets/img/favicon.png"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Dashboard</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+    <!-- CSS Files -->
+      <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="assets/css/material-kit.css?v=1.2.1" rel="stylesheet"/>
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+      <link href="assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
+      
+      <link rel="stylesheet" href="style2.css">
+
+  </head>
+
+  <body class="">
+    <div class="dashboard">
+      <div class="dashboard__header">
+          <div class="dashboard__hamburger">
+              <img src="assets/img/faces/avatar.png">
+          </div>
+          <div class="dashboard__title">
+              Lightning
+          </div>
+          <div class="dashboard__notifications">
+              <!-- <img src="assets/images/notifications.png"> -->
+          </div>
+      </div>
+
+      <div class="dashboard__summary">
+          <div class="dashboard__percent">
+              <span class="dashboard__percent-number">
+                  40
+              </span>
+              <span class="dashboard__percent-symbol">
+                  kWH
+              </span>
+          </div>
+          <div class="dashboard__percent-sub">
+              UNITS LEFT
+          </div>
+          <ul class="dashboard__summary-icons">
+              <li class="dashboard__summary-icon-item">
+                  <a class="dashboard__summary-icon"
+                     ng-class="{'dashboard__summary-icon--bg-green': vm.status.mode !== 0, 'dashboard__summary-icon--bg-red': vm.status.mode === 0}"
+                     ng-click="vm.toggleDevicePower()">
+                      <img src="assets/img/power.png">
+                  </a>
+                  <div class="dashboard__summary-text">
+                      MAINS IN
+                  </div>
+                  
+              </li>
+              <li class="dashboard__summary-icon-item">
+                <a class="dashboard__summary-icon"
+                   ng-class="{'dashboard__summary-icon--bg-green': vm.status.mode !== 0, 'dashboard__summary-icon--bg-red': vm.status.mode === 0}"
+                   ng-click="vm.toggleDevicePower()">
+                    <img src="assets/img/power.png">
+                </a>
+                <div class="dashboard__summary-text" ng-show="vm.status.mode !== 0">
+                    MAINS OUT
+                </div>
+              </li>
+              
+              <li class="dashboard__summary-icon-item">
+                  <a class="dashboard__summary-icon dashboard__summary-icon--bg-yellow"
+                     ng-click="vm.refreshStatus()">
+                      <img src="assets/img/refresh.png">
+                  </a>
+                  <div class="dashboard__summary-text">
+                      refresh
+                  </div>
+              </li>
+          </ul>
+      </div>
+      
+      <div class="dashboard__cta">
+          <a class="app-btn" ui-sref="devices.map">
+              Add new devices
+          </a>
+          <a class="app-btn" ui-sref="profiles.add">
+              Create Profile
+          </a>
+      </div>
+      <div class="dashboard__cta">
+          <a class="app-btn app-btn--inverted" ng-click="vm.logout()">
+              Logout
+          </a>
+      </div>
+      <div ng-show="vm.profile" class="profile">
+          <div class="profile__header">
+              <div class="profile__percent">
+                  {{vm.profile.percent}} <span class="profile__percent-symbol">%</span>
+              </div>
+              <div class="profile__percent-info">
+                  BATTERY ALLOCATED
+              </div>
+          </div>
+          <div class="profile__body">
+              <ul class="profile__periods">
+                  <li ng-repeat="period in vm.profile.periods" class="profile__period period"
+                      ng-class="period.className">
+                      <div class="period__header">
+                          <img class="period__icon" ng-src="{{period.imgUrl}}">
+                          <span class="period__name">{{period.name}}</span>
+                      </div>
+                      <div class="period__duration duration">
+                          <div class="duration__title" ng-class="'duration__title--' + period.theme">
+                              DURATION
+                          </div>
+                          <div class="duration__label" ng-class="'duration__label--' + period.theme">
+                              START
+                          </div>
+                          <div class="duration__slider">
+                              <rzslider rz-slider-model="period.startTimeValue"
+                                        rz-slider-options="period.options"></rzslider>
+                              <div class="duration__slider-value"
+                                   ng-class="'duration__slider-value--' + period.theme">
+                                  {{period.startTime}}
+                              </div>
+                          </div>
+                          <div class="duration__label" ng-class="'duration__label--' + period.theme">
+                              END
+                          </div>
+                          <div class="duration__slider">
+                              <rzslider rz-slider-model="period.endTimeValue"
+                                        rz-slider-options="period.options"></rzslider>
+                              <div class="duration__slider-value"
+                                   ng-class="'duration__slider-value--' + period.theme">
+                                  {{period.endTime}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="period__state" ng-class="'period__state--' + period.theme"
+                           ng-show="period.appliances.length === 0">
+                          No Devices Added
+                      </div>
+                      <div class="period__appliances-wrapper" ng-hide="period.appliances.length === 0">
+                          <div class="period__appliances-title">
+                              Appliances
+                          </div>
+                          <ul class=period__appliances>
+                              <li ng-repeat="appliance in period.appliances" class="period__appliance">
+                                  <div class="period__appliance-block">
+                                      {{appliance.name}} {{appliance.quantity}}
+                                  </div>
+                              </li>
+                          </ul>
+                          <div class="period__allocation-wrapper"
+                               ng-class="'period__allocation-wrapper--' + period.theme">
+                              <div class="period__allocation-title">
+                                  TOTAL BATTERY ALLOCATED
+                              </div>
+                              <div class="period__allocation">
+                                  {{period.percent}}%
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </div>
+  </body>
+
+</html>

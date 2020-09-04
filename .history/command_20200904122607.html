@@ -1,0 +1,52 @@
+<script>
+  let xhr = new XMLHttpRequest();
+
+  let json = JSON.stringify({
+    meterNumber: "14241794702"
+  });
+
+  xhr.open('POST', 'http://localhost/smart-meter/routes/user/get_customer/');
+
+  xhr.responseType = 'json';
+
+  xhr.send(json);
+
+
+  xhr.onload = function() {
+    if (xhr.status == 200) { 
+      result = xhr.response;
+      // alert()
+
+      
+      if (result.meterDetails.lastDeviceStatus.mainsIn === "on") {
+        mainsIn.classList.remove('dashboard__summary-icon--bg-red');
+        mainsIn.classList.add('dashboard__summary-icon--bg-green');
+      } else {
+        mainsIn.classList.remove('dashboard__summary-icon--bg-green');
+        mainsIn.classList.add('dashboard__summary-icon--bg-red');
+      }
+      if (result.meterDetails.lastDeviceStatus.mainsOut === "on") {
+        mainsOut.classList.remove('dashboard__summary-icon--bg-red');
+        mainsOut.classList.add('dashboard__summary-icon--bg-green');
+      } else {
+        mainsOut.classList.remove('dashboard__summary-icon--bg-green');
+        mainsOut.classList.add('dashboard__summary-icon--bg-red');
+      } 
+      unitsLeft.textContent = result.meterDetails.lastDeviceStatus.unitLeft;
+      meterNumber.textContent = result.meterDetails.meterNumber;
+      billingTarriff.textContent = result.meterDetails.tarriffCode.toUpperCase();
+      unitPrice.textContent = result.meterDetails.tarriffUnitPrice;
+      
+      localStorage.setItem('state', result.meterDetails.lastDeviceStatus.mainsOut === 'on' ? 5 : 6);
+      // alert(result.meterDetails.meterNumber);
+      
+    } else {
+      alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+    }
+  };
+
+
+  xhr.onerror = function() {
+    alert("Request failed");
+  };
+</script>

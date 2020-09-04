@@ -1,0 +1,5 @@
+const init = _ => {
+  
+}
+
+init();

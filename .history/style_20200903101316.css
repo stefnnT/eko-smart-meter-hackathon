@@ -1,0 +1,55 @@
+tr th, tr td {
+  border-right: 2px solid white;
+}
+
+.form-row {
+  margin-bottom: 10px; 
+  font-size: 1.4rem; 
+  letter-spacing: 1.5px;
+}
+
+.more-details {
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  gap
+
+  padding: 1rem 4.5rem !important;
+  border: 2px solid blue;
+}
+
+.details {
+  /* display: flex; */
+  flex: column nowrap;
+
+  /* border: 1px solid green; */
+}
+
+.details > div {
+  display: flex;
+  /* flex-grow: 1; */
+  flex-basis: 100%;
+
+  padding: 1rem 0.5rem;
+  /* border: 1px solid black; */
+}
+
+.details > div .detail-label {
+  flex-basis: 40%;
+
+  /* font-weight: 300; */
+  color: rgb(86, 123, 158);
+
+}
+
+.details > div .detail {
+  flex-grow: 1;
+}
+
+.detail-title {
+  flex-basis: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(86, 123, 158);
+}

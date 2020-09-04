@@ -1,0 +1,1 @@
+const mains = document.querySelector('@')

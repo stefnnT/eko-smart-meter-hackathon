@@ -1,0 +1,29 @@
+tr th, tr td {
+  border-right: 2px solid white;
+}
+
+.form-row {
+  margin-bottom: 10px; 
+  font-size: 1.7rem; 
+  letter-spacing: 1.5px;
+}
+
+.more-details {
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: auto auto;
+
+  padding: 1rem 4.5rem !important;
+  border: 2px solid blue;
+}
+
+.details {
+  display: flex;
+
+
+}
+
+.detail {
+  flex
+}

@@ -1,0 +1,11 @@
+
+body {
+  align-items: center;
+  text-align: center;
+}
+
+.wrapper {
+  max-width: 33vw;
+  background-color: red;
+  margin: auto;
+}
