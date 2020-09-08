@@ -32,7 +32,7 @@ const updateDeviceCommand = _ => {
     mainsOut.removeAttribute('disabled');
     mainsOut.style.cursor = "pointer";
     location.reload();
-  }, 14000) //make is 40000
+  }, 30000) //make is 40000
 
 
   let json = JSON.stringify({
@@ -187,4 +187,4 @@ refresh.addEventListener('click', _ => location.reload());
 
 rechargeButton.addEventListener('click', recharge);
 
-// setTimeout(_ => location.reload(), 5000);
+setTimeout(_ => location.reload(), 15000);
