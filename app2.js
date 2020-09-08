@@ -15,11 +15,13 @@ const rechargeButton = document.querySelector('#recharge');
 const loader = document.querySelector('.loader');
 
 const baseUrl = "https://smart-meter-api.herokuapp.com/";
+// const baseUrl = "http://localhost/smart-meter/";
 
 var result;
 
 
 const updateDeviceCommand = _ => {
+  toastr.info("Updating command...");
   let xhr = new XMLHttpRequest();
 
   mainsOut.setAttribute('disabled', true);
@@ -30,14 +32,16 @@ const updateDeviceCommand = _ => {
     mainsOut.removeAttribute('disabled');
     mainsOut.style.cursor = "pointer";
     location.reload();
-  }, 4000) //make is 40000
+  }, 14000) //make is 40000
 
 
   let json = JSON.stringify({
     meterNumber: "14241794702",
-    state: localStorage.getItem('state') === 6 ? 5 : 6
+    state: localStorage.getItem('state') === "6" ? "5" : "6"
   });
-
+  console.log(json);
+  
+  
   xhr.open('POST', `${baseUrl}routes/user/meter_state/`);
 
   xhr.responseType = 'json';
@@ -48,10 +52,11 @@ const updateDeviceCommand = _ => {
   xhr.onload = function() {
     if (xhr.status == 200) { // analyze HTTP status of the response
       let time = new Date();
-      localStorage.setItem('tempState', localStorage.getItem('state') === 6 ? 5 : 6);
+      localStorage.setItem('tempState', localStorage.getItem('state') === "6" ? "5" : "6");
       localStorage.setItem('time', time.getTime());
+      setTimeout(_ => toastr.success("page will automatically reload",xhr.response.message), 1500);
     } else { // show the result
-      alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+      toastr.error(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
 
       // let result = xhr.response;
       // console.log(result);
@@ -66,12 +71,16 @@ const updateDeviceCommand = _ => {
 
 
   xhr.onerror = function() {
-    alert("Request failed");
+    todayHistory.error("Request Failed");
+    // alert("Request failed");
   };
 }
 
 const recharge = _ => {
   let xhr = new XMLHttpRequest();
+
+  loader.classList.remove('hide');
+  loader.classList.add('show');
 
   let json = JSON.stringify({
     meterNumber: "14241794702",
@@ -79,13 +88,13 @@ const recharge = _ => {
     stakeholderId: +localStorage.getItem('stakeholderId'),
     tarriff: localStorage.getItem('tarriff')
   });
-  console.log(json);
+  // console.log(json);
 
   xhr.open('POST', `${baseUrl}routes/user/recharge/`);
 
   xhr.responseType = 'json';
 
-  xhr.send(json);
+  setTimeout(_ => xhr.send(json), 2000);
   
   
   xhr.onload = function() {
@@ -93,8 +102,8 @@ const recharge = _ => {
     loader.classList.add('hide');
     if (xhr.status == 200) { 
       result = xhr.response;
-      // alert(result)
-      console.log(result)
+      toastr.success(result.message);
+      // console.log(result)
 
     }
   };
@@ -106,7 +115,7 @@ const recharge = _ => {
   
   
   xhr.onerror = function() {
-    alert("Request failed");
+    toastr.error("Request failed");
   };
 }
 
@@ -177,3 +186,5 @@ mainsOut.addEventListener('click', updateDeviceCommand);
 refresh.addEventListener('click', _ => location.reload());
 
 rechargeButton.addEventListener('click', recharge);
+
+// setTimeout(_ => location.reload(), 5000);
